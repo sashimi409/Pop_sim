@@ -1,7 +1,9 @@
 import random
+#population is a 2 dimensional array holding th avlues for each person. Not very effective, could be done better using a class.
 population = [[0 for col in range(7)] for row in range(0)]
 job = ["forager", "waterer", "builder"]
 
+#class used incorrectly, needs to be changed
 class check:
         def job(self):
                 forager = 0
@@ -32,7 +34,7 @@ class check:
                         if population[i][4] == 1:
                                 housed+=1
                 return housed
-
+#generates a single person in the populaiton that is not one of the last 2
 def generatepop(tag):
         s = random.randint(0, 1)    
         a = random.randint(15,45)
@@ -45,6 +47,7 @@ def generatepop(tag):
         person = [tag, a, h, t, d, j, s, e]
         return person
 
+#generates a single person that is one of the last 2. The reason for this funciton to be seperate is bto insure that there is a male and a female, as well as having all "jobs"
 def generatelast(tag):
   s = random.randint(0,1)
   j = random.randint(0,len(job)-1)
@@ -66,7 +69,9 @@ def generatelast(tag):
  
   person = [tag, a, h, t, d, j, s, e]
   return person
-         
+
+
+#set of instruxtions to create the initial random population and give some data about it. needs to be its own funciton.         
 popnum = random.randint(5, 20)
 for i in range(0,popnum-2):
   population.append(generatepop(i))
@@ -79,6 +84,7 @@ print "There is/are ", check().job()[1], " waterer(s)."
 print "There is/are ", check().sex()[1], " male(s)."
 print "There is/are ", check().sex()[0], "female(s)."
 
+#biomes were part of an idea that was not finished.
 biomes = ["regular", "snow", "desert"]
 b = random.randint(0, 4)
 if b >=3:
@@ -94,11 +100,13 @@ elif biomes[b] == "desert":
 
         print "Watch out, it's hot!"
 
+#class is used semi-correctly, should still be modified, would be easier with single variables.
 class stock():
         foodstock = 0
         waterstock = 0
         domecilestock = 4
-        
+
+#determiens how much food is ofund in a "day"        
 def forage():
         f=check().job()[0]
         if f==0:
@@ -112,6 +120,7 @@ def forage():
                         pass
                 i += 1
 
+#determiens how much water is found in a "day"
 def water():
         w=check().job()[1]
         if w==0:
@@ -125,6 +134,7 @@ def water():
                         pass
                 i+=1
 
+#determines how man people are exposed to the elements.
 def shelter():
         x=check().job()[2]
         if x==0:
@@ -134,6 +144,7 @@ def shelter():
                 stock.domecilestock += .5
                 i+=1
 
+#allocates all stocks of food and water, and deals wiht hosuing. Housing should be its own funciton.
 def live():
         for i in range(0,len(population)):
                 if stock.waterstock > 0:
@@ -153,8 +164,8 @@ def live():
         print "Water stock is:", stock.waterstock
         print "Food stock is:", stock.foodstock
         print "Domecile stock is:", stock.domecilestock
-extday = 0
 
+#determines if and who dies on a certain "day"
 def kill():
         f=0
         w=0
@@ -181,11 +192,12 @@ def kill():
                                 d+=1
         i += 1
 
-
+#Ages each person by one "day", no funciton to die of old age yet
 def aging():
     for i in range(0,len(population)):
         population[i][1]+=1
 
+#incorrectly used class, needs to be revisited.
 class day():
         day=1
         while len(population)>0:
@@ -200,8 +212,8 @@ class day():
                 print "Pop size: ", len(population), ".       ", check().job()[0], " foragers", ". ", check().job()[1], " waterers", ". ", check().job()[2], " builders"
     
 
+#runs main function, needs ot be cleaned up.
 day()
 print "The population died on day:", day().day-1
 
-asdf = raw_input("Press any key to exit.")
 
